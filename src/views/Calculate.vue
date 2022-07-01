@@ -75,7 +75,7 @@
           <!-- Author: FormBold Team -->
           <!-- Learn More: https://formbold.com -->
           <div class="mx-auto w-full max-w-[550px]">
-            <form @submit.prevent="submit">
+            <form @submit.prevent="">
               <div
                 class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-10"
               >
@@ -185,7 +185,8 @@
                   <button
                     class="border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center bg-indigo-500 hover:bg-indigo-400 hover:text-white text-white"
                     v-if="currentStep === 3"
-                    @click="handleOnNextClick"
+                    @click="handleOnSubmit"
+                    type="submit"
                   >
                     Submit
                     <svg
@@ -252,7 +253,9 @@ export default defineComponent({
         calculateState.coffeeCount = 999;
       }
     };
-
+    const handleOnSubmit = (): void => {
+      console.log("submit!");
+    };
     const selectedCoffeeCount = computed(() => calculateState.coffeeCount);
 
     return {
@@ -263,6 +266,7 @@ export default defineComponent({
       selectCoffeeCount,
       selectedCoffeeCount,
       options,
+      handleOnSubmit,
       ...toRefs(calculateState),
     };
   },
