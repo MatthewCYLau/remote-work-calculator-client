@@ -3,17 +3,13 @@ import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
 export const useApiWithAuth = (endpoint: string) => {
-  const token = localStorage.getItem("token") || "";
-  return useApi(endpoint, token);
+  return useApi(endpoint);
 };
 
-export const useApi = (endpoint: string, accessToken?: string) => {
+export const useApi = (endpoint: string) => {
   const router = useRouter();
   const api = axios.create({
     baseURL: process.env.VUE_APP_API_BASE_URL || "http://localhost:8081/",
-    headers: {
-      "x-auth-token": accessToken ? accessToken : "",
-    },
   });
 
   const data = ref();

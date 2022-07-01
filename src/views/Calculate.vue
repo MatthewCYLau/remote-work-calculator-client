@@ -108,10 +108,11 @@
                   Work Postcode
                 </label>
                 <input
-                  type="email"
-                  name="homePostcode"
-                  id="homePostcode"
+                  type="text"
+                  name="workPostcode"
+                  id="workPostcode"
                   placeholder="SW1A 1AA"
+                  v-model="workPostcode"
                   class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
@@ -214,21 +215,27 @@
 <script lang="ts">
 import { defineComponent, computed, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
+import { useApiWithAuth } from "../modules/api";
 import Dropdown from "../components/Dropdown.vue";
 
 interface CalculateState {
   currentStep: number;
   coffeeCount: number;
+  homePostcode: string;
+  workPostcode: string;
 }
 
 export default defineComponent({
   components: { Dropdown },
   setup() {
     const options: string[] = ["1", "2", "3", "I need help"];
+    const { post } = useApiWithAuth("/api/calculate");
     const router = useRouter();
     const calculateState = reactive<CalculateState>({
       currentStep: 1,
       coffeeCount: 0,
+      homePostcode: "",
+      workPostcode: "",
     });
 
     const handleOnNextClick = () => {
@@ -255,7 +262,12 @@ export default defineComponent({
       }
     };
     const handleOnSubmit = (): void => {
-      router.push({ name: "success" });
+      console.log(calculateState);
+      post(calculateState).then((data) => {
+        console.log(data.savings);
+        console.log(data.shouldWorkRemote);
+        router.push({ name: "success" });
+      });
     };
     const selectedCoffeeCount = computed(() => calculateState.coffeeCount);
 
