@@ -124,11 +124,11 @@
               <div>
                 <div class="flex mt-4">
                   <button
-                    class="border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 mr-2 flex items-center"
+                    class="border border-blue-500 text-blue-500 block rounded-sm font-bold py-4 px-6 mr-2 flex items-center"
                     @click="handleOnPreviousClick"
                     :disabled="shouldDisablePreviousButton"
                     :class="{
-                      'bg-indigo-500 hover:bg-indigo-400 hover:text-white text-white ':
+                      'bg-blue-500 hover:bg-blue-400 hover:text-white text-white ':
                         !shouldDisablePreviousButton,
                     }"
                   >
@@ -152,12 +152,12 @@
                     Previous page
                   </button>
                   <button
-                    class="border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
+                    class="border border-blue-500 text-blue-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
                     v-if="currentStep !== 3"
                     @click="handleOnNextClick"
                     :disabled="shouldDisableNextButton"
                     :class="{
-                      'bg-indigo-500 hover:bg-indigo-400 hover:text-white text-white':
+                      'bg-blue-500 hover:bg-blue-400 hover:text-white text-white':
                         !shouldDisableNextButton,
                     }"
                   >
@@ -183,7 +183,7 @@
                     </svg>
                   </button>
                   <button
-                    class="border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center bg-indigo-500 hover:bg-indigo-400 hover:text-white text-white"
+                    class="border border-blue-500 text-blue-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center bg-blue-500 hover:bg-blue-400 hover:text-white text-white"
                     v-if="currentStep === 3"
                     @click="handleOnSubmit"
                     type="submit"
@@ -213,6 +213,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, reactive, toRefs } from "vue";
+import { useRouter } from "vue-router";
 import Dropdown from "../components/Dropdown.vue";
 
 interface CalculateState {
@@ -224,7 +225,7 @@ export default defineComponent({
   components: { Dropdown },
   setup() {
     const options: string[] = ["1", "2", "3", "I need help"];
-
+    const router = useRouter();
     const calculateState = reactive<CalculateState>({
       currentStep: 1,
       coffeeCount: 0,
@@ -254,7 +255,7 @@ export default defineComponent({
       }
     };
     const handleOnSubmit = (): void => {
-      console.log("submit!");
+      router.push({ name: "success" });
     };
     const selectedCoffeeCount = computed(() => calculateState.coffeeCount);
 

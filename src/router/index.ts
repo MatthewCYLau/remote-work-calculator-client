@@ -20,51 +20,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: false },
   },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: Dashboard,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/users",
-    name: "users",
-    component: Users,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/profile",
-    name: "profile",
-    component: Profile,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/profile/edit",
-    name: "editProfile",
-    component: EditProfile,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/add-task",
-    name: "addTask",
-    component: TaskForm,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/tasks/:id",
-    name: "taskPage",
-    component: TaskPage,
-    meta: { requiresAuth: true },
-    props: (route) => ({ id: route.params.id }),
-  },
-  {
-    path: "/tasks/edit/:id",
-    name: "editTask",
-    component: TaskForm,
-    meta: { requiresAuth: true },
-    props: (route) => ({ id: route.params.id }),
-  },
-  { path: "/login", component: Login, meta: { requiresAuth: false } },
-  {
     path: "/register",
     component: Register,
     meta: { requiresAuth: false },
@@ -73,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/success",
     name: "success",
     component: Success,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: false },
   },
 ];
 
