@@ -114,21 +114,11 @@
                   class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
-              <div class="mb-5">
-                <label
-                  for="message"
-                  class="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Message
-                </label>
-                <textarea
-                  rows="4"
-                  name="message"
-                  id="message"
-                  placeholder="Type your message"
-                  class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                ></textarea>
-              </div>
+              <Dropdown
+                :options="options"
+                :onClick="selectCoffeeCount"
+                :selectedOption="selectedCoffeeCount"
+              />
               <div>
                 <div class="flex mt-4">
                   <button
@@ -195,23 +185,27 @@
           </div>
         </div>
       </div>
-      <!-- End Main Hero Content -->
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, reactive, toRefs } from "vue";
+import Dropdown from "../components/Dropdown.vue";
 
 interface CalculateState {
   currentStep: number;
+  coffeeCount: number;
 }
 
 export default defineComponent({
-  components: {},
+  components: { Dropdown },
   setup() {
+    const options: string[] = ["1", "2", "3", "I need help"];
+
     const calculateState = reactive<CalculateState>({
       currentStep: 1,
+      coffeeCount: 0,
     });
 
     const handleOnNextClick = () => {
@@ -230,11 +224,24 @@ export default defineComponent({
       () => calculateState.currentStep === 3
     );
 
+    const selectCoffeeCount = (option: string) => {
+      if (Number(option)) {
+        calculateState.coffeeCount = +option;
+      } else {
+        calculateState.coffeeCount = 999;
+      }
+    };
+
+    const selectedCoffeeCount = computed(() => calculateState.coffeeCount);
+
     return {
       handleOnNextClick,
       handleOnPreviousClick,
       shouldDisablePreviousButton,
       shouldDisableNextButton,
+      selectCoffeeCount,
+      selectedCoffeeCount,
+      options,
       ...toRefs(calculateState),
     };
   },

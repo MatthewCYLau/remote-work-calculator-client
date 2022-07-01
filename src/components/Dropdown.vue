@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <label for="select" class="font-semibold block py-2">Select Input:</label>
+    <label for="select" class="font-semibold block py-2"
+      >Daily coffee consumption:</label
+    >
 
     <div class="relative">
       <div
