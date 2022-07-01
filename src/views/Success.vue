@@ -86,10 +86,10 @@
             </svg>
             <div class="text-center">
               <h3 class="md:text-2xl text-base text-gray-900 text-center">
-                Success!
+                You should work remote!
               </h3>
               <p class="text-gray-600 my-2">
-                Thank you for contributing to a task.
+                You would save £100.00 by working remote.
               </p>
               <div class="flex flex-col items-center mt-12 text-center">
                 <span class="relative inline-flex w-full md:w-auto">
