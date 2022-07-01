@@ -216,6 +216,7 @@
 import { defineComponent, computed, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { useApiWithAuth } from "../modules/api";
+import { useResults } from "../modules/results";
 import Dropdown from "../components/Dropdown.vue";
 
 interface CalculateState {
@@ -231,6 +232,7 @@ export default defineComponent({
     const options: string[] = ["1", "2", "3", "I need help"];
     const { post } = useApiWithAuth("/api/calculate");
     const router = useRouter();
+    const { setSavings, setShouldWorkRemote } = useResults();
     const calculateState = reactive<CalculateState>({
       currentStep: 1,
       coffeeCount: 0,
@@ -264,8 +266,8 @@ export default defineComponent({
     const handleOnSubmit = (): void => {
       console.log(calculateState);
       post(calculateState).then((data) => {
-        console.log(data.savings);
-        console.log(data.shouldWorkRemote);
+        setSavings(data.savings);
+        setShouldWorkRemote(data.shouldWorkRemote);
         router.push({ name: "success" });
       });
     };

@@ -76,6 +76,7 @@
         >
           <div class="bg-white p-6 md:mx-auto">
             <svg
+              v-if="shouldWorkRemote"
               viewBox="0 0 24 24"
               class="text-green-600 w-16 h-16 mx-auto my-6"
             >
@@ -84,12 +85,23 @@
                 d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z"
               ></path>
             </svg>
+            <svg
+              v-if="!shouldWorkRemote"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="text-red-600 w-16 h-16 mx-auto my-6"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5 15.538l-3.592-3.548 3.546-3.587-1.416-1.403-3.545 3.589-3.588-3.543-1.405 1.405 3.593 3.552-3.547 3.592 1.405 1.405 3.555-3.596 3.591 3.55 1.403-1.416z"
+              />
+            </svg>
             <div class="text-center">
               <h3 class="md:text-2xl text-base text-gray-900 text-center">
-                You should work remote!
+                {{ subject }}
               </h3>
               <p class="text-gray-600 my-2">
-                You would save £100.00 by working remote.
+                {{ body }}
               </p>
               <div class="flex flex-col items-center mt-12 text-center">
                 <span class="relative inline-flex w-full md:w-auto">
@@ -116,6 +128,26 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useResults } from "../modules/results";
 
-export default defineComponent({ components: {} });
+export default defineComponent({
+  setup() {
+    const { savings, shouldWorkRemote } = useResults();
+    console.log(savings.value);
+    const subject = `You should ${
+      shouldWorkRemote.value ? "" : "not "
+    }work remote!`;
+
+    const body = `You would ${
+      shouldWorkRemote.value ? "save" : "lose"
+    } £${String(savings.value)} by working remote.`;
+
+    return {
+      subject,
+      body,
+      shouldWorkRemote,
+    };
+  },
+  components: {},
+});
 </script>
