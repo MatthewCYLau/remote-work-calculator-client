@@ -77,44 +77,46 @@
           <div class="mx-auto w-full max-w-[550px]">
             <form @submit.prevent="submit">
               <div
-                class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700"
+                class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-10"
               >
                 <div
                   class="bg-blue-600 h-2.5 rounded-full"
                   :style="{ width: (currentStep / 3) * 100 + '%' }"
                 ></div>
               </div>
-              <div class="mb-5">
+              <div class="mb-5" v-if="currentStep === 1">
                 <label
-                  for="name"
+                  for="homePostcode"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
-                  Full Name
+                  Home Postcode
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Full Name"
+                  name="homePostcode"
+                  id="homePostcode"
+                  placeholder="SW1A 1AA"
+                  v-model="homePostcode"
                   class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
-              <div class="mb-5">
+              <div class="mb-5" v-if="currentStep === 2">
                 <label
-                  for="email"
+                  for="workPostcode"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
-                  Email Address
+                  Work Postcode
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  id="email"
-                  placeholder="example@domain.com"
+                  name="homePostcode"
+                  id="homePostcode"
+                  placeholder="SW1A 1AA"
                   class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
               <Dropdown
+                v-if="currentStep === 3"
                 :options="options"
                 :onClick="selectCoffeeCount"
                 :selectedOption="selectedCoffeeCount"
@@ -151,6 +153,7 @@
                   </button>
                   <button
                     class="border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
+                    v-if="currentStep !== 3"
                     @click="handleOnNextClick"
                     :disabled="shouldDisableNextButton"
                     :class="{
@@ -176,6 +179,24 @@
                         d="M-24,422h401.645l-72.822,72.822c-9.763,9.763-9.763,25.592,0,35.355c9.763,9.764,25.593,9.762,35.355,0
             l115.5-115.5C460.366,409.989,463,403.63,463,397s-2.634-12.989-7.322-17.678l-115.5-115.5c-9.763-9.762-25.593-9.763-35.355,0
             c-9.763,9.763-9.763,25.592,0,35.355l72.822,72.822H-24c-13.808,0-25,11.193-25,25S-37.808,422-24,422z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center bg-indigo-500 hover:bg-indigo-400 hover:text-white text-white"
+                    v-if="currentStep === 3"
+                    @click="handleOnNextClick"
+                  >
+                    Submit
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      class="h-5 w-5 mr-2 fill-current ml-2"
+                    >
+                      <path
+                        d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"
                       />
                     </svg>
                   </button>
