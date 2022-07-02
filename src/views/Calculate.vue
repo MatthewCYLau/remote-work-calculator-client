@@ -230,7 +230,7 @@ export default defineComponent({
   components: { Dropdown },
   setup() {
     const options: string[] = ["1", "2", "3", "I need help"];
-    const { post } = useApiWithAuth("/api/calculate");
+    const { post } = useApiWithAuth("/api/calculations");
     const router = useRouter();
     const { setSavings, setShouldWorkRemote } = useResults();
     const calculateState = reactive<CalculateState>({
