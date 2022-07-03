@@ -186,10 +186,29 @@
                   <button
                     class="border border-blue-500 text-blue-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center bg-blue-500 hover:bg-blue-400 hover:text-white text-white"
                     v-if="currentStep === 3"
-                    @click="handleOnSubmit"
+                    @click="handleOnCalculateNow"
                     type="submit"
                   >
-                    Submit
+                    Calculate now!
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      class="h-5 w-5 mr-2 fill-current ml-2"
+                    >
+                      <path
+                        d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="border border-yellow-500 text-yellow-500 block rounded-sm font-bold py-4 px-6 ml-2 flex items-center bg-yellow-500 hover:bg-yellow-400 hover:text-white text-white"
+                    v-if="currentStep === 3"
+                    @click="handleOnGetResultsLater"
+                    type="submit"
+                  >
+                    Get results later
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -230,9 +249,8 @@ export default defineComponent({
   components: { Dropdown },
   setup() {
     const options: string[] = ["1", "2", "3", "I need help"];
-    const { post } = useApiWithAuth("/api/v1/calculations");
     const router = useRouter();
-    const { setSavings, setShouldWorkRemote } = useResults();
+    const { setSavings, setShouldWorkRemote, setCalculationId } = useResults();
     const calculateState = reactive<CalculateState>({
       currentStep: 1,
       coffeeCount: 0,
@@ -263,11 +281,19 @@ export default defineComponent({
         calculateState.coffeeCount = 999;
       }
     };
-    const handleOnSubmit = (): void => {
-      console.log(calculateState);
+    const handleOnCalculateNow = (): void => {
+      const { post } = useApiWithAuth("/api/v1/calculations");
       post(calculateState).then((data) => {
         setSavings(data.savings);
         setShouldWorkRemote(data.shouldWorkRemote);
+        router.push({ name: "success" });
+      });
+    };
+
+    const handleOnGetResultsLater = (): void => {
+      const { post } = useApiWithAuth("/api/v2/calculations");
+      post(calculateState).then((data) => {
+        setCalculationId(data.MessageId);
         router.push({ name: "success" });
       });
     };
@@ -281,7 +307,8 @@ export default defineComponent({
       selectCoffeeCount,
       selectedCoffeeCount,
       options,
-      handleOnSubmit,
+      handleOnCalculateNow,
+      handleOnGetResultsLater,
       ...toRefs(calculateState),
     };
   },

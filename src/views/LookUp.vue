@@ -38,8 +38,6 @@
         class="container max-w-lg px-4 py-32 mx-auto text-left md:max-w-none md:text-center"
       >
         <div class="flex items-center justify-center p-12">
-          <!-- Author: FormBold Team -->
-          <!-- Learn More: https://formbold.com -->
           <div class="mx-auto w-full max-w-[550px]">
             <form @submit.prevent="">
               <div class="mb-5">
@@ -90,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 
 interface LookUpState {
