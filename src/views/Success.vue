@@ -42,7 +42,7 @@
         >
           <div class="bg-white p-6 md:mx-auto">
             <svg
-              v-if="shouldWorkRemote"
+              v-if="shouldWorkRemote || calculationId"
               viewBox="0 0 24 24"
               class="text-green-600 w-16 h-16 mx-auto my-6"
             >
@@ -52,7 +52,7 @@
               ></path>
             </svg>
             <svg
-              v-if="!shouldWorkRemote"
+              v-if="!shouldWorkRemote && !calculationId"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               class="text-red-600 w-16 h-16 mx-auto my-6"
@@ -98,22 +98,40 @@ import { useResults } from "../modules/results";
 
 export default defineComponent({
   setup() {
-    const { savings, shouldWorkRemote } = useResults();
-    console.log(savings.value);
-    const subject = `You should ${
-      shouldWorkRemote.value ? "" : "not "
-    }work remote!`;
+    const { savings, shouldWorkRemote, id } = useResults();
+    const calculationId = id.value;
+    const returnSubject = (): string => {
+      if (calculationId) {
+        return "Calculation submitted!";
+      } else {
+        return `You should ${shouldWorkRemote.value ? "" : "not "}work remote!`;
+      }
+    };
 
-    const body = `You would ${
-      shouldWorkRemote.value ? "save" : "lose"
-    } £${String(savings.value)} by working remote.`;
+    const returnBody = (): string => {
+      if (calculationId) {
+        return `Calculation reference is: ${calculationId}`;
+      } else {
+        return `You would ${shouldWorkRemote.value ? "save" : "lose"} £${String(
+          savings.value
+        )} by working remote.`;
+      }
+    };
+    const subject = returnSubject();
+
+    const body = returnBody();
 
     return {
       subject,
       body,
       shouldWorkRemote,
+      calculationId,
     };
   },
   components: {},
+  onBeforeUnmount() {
+    const { setCalculationId } = useResults();
+    setCalculationId("");
+  },
 });
 </script>

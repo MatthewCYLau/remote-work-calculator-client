@@ -293,7 +293,7 @@ export default defineComponent({
     const handleOnGetResultsLater = (): void => {
       const { post } = useApiWithAuth("/api/v2/calculations");
       post(calculateState).then((data) => {
-        setCalculationId(data.MessageId);
+        setCalculationId(data.id);
         router.push({ name: "success" });
       });
     };
