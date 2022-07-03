@@ -29,8 +29,13 @@
                 class="flex flex-col items-start justify-center w-full space-x-6 text-center lg:space-x-8 md:w-2/3 md:mt-0 md:flex-row md:items-center"
               ></div>
               <div
-                class="flex flex-col items-start justify-end w-full pt-4 md:items-center md:w-1/3 md:flex-row md:py-0"
+                class="flex flex-col items-start justify-end w-full p-2 md:items-center md:w-1/3 md:flex-row md:py-0"
               >
+                <a
+                  href="/look-up"
+                  class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto"
+                  >Retrieve calculation</a
+                >
                 <a
                   href="/calculate"
                   class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-blue-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-blue-500 focus:outline-none md:focus:ring-2 focus:ring-0 focus:ring-offset-2 focus:ring-blue-600"
@@ -39,43 +44,8 @@
               </div>
             </div>
           </div>
-          <div
-            @click="showMenu = !showMenu"
-            class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-white rounded-full cursor-pointer md:hidden hover:bg-gray-100"
-          >
-            <svg
-              class="w-6 h-6 text-gray-700"
-              x-show="!showMenu"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              x-cloak=""
-            >
-              <path d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <svg
-              class="w-6 h-6 text-gray-700"
-              x-show="showMenu"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              x-cloak=""
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </div>
         </div>
       </nav>
-
       <!-- Main Hero Content -->
       <div
         class="container max-w-lg px-4 py-32 mx-auto text-left md:max-w-none md:text-center"
@@ -85,7 +55,7 @@
         >
           <span class="inline md:block">Start Calculating Your</span>
           <span
-            class="relative mt-2 text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-blue-500 md:inline-block"
+            class="relative mt-2 pb-2 text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-blue-500 md:inline-block"
             >Work Remote Savings</span
           >
         </h1>

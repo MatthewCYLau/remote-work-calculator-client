@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "@/views/Home.vue";
 import Calculate from "@/views/Calculate.vue";
+import LookUp from "@/views/LookUp.vue";
 import Success from "@/views/Success.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -15,6 +16,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/success",
     name: "success",
     component: Success,
+    meta: { requiresAuth: false },
+  },
+  {
+    path: "/look-up",
+    name: "lookup",
+    component: LookUp,
     meta: { requiresAuth: false },
   },
 ];
