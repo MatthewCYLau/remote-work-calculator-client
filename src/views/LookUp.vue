@@ -58,6 +58,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
+import { useApiWithAuth } from "../modules/api";
+import { useResults } from "../modules/results";
 import { useRouter } from "vue-router";
 import Nav from "../components/Nav.vue";
 
@@ -69,12 +71,18 @@ export default defineComponent({
   components: { Nav },
   setup() {
     const router = useRouter();
+    const { setSavings, setShouldWorkRemote } = useResults();
     const lookUpState = reactive<LookUpState>({
       id: "",
     });
 
     const handleOnSubmit = (): void => {
-      router.push({ path: `/calculations/${lookUpState.id}` });
+      const { get } = useApiWithAuth(`/api/calculations/${lookUpState.id}`);
+      get().then((data) => {
+        setSavings(data.savings);
+        setShouldWorkRemote(data.shouldWorkRemote);
+        router.push({ path: `/calculations/${lookUpState.id}` });
+      });
     };
 
     return {

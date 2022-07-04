@@ -31,6 +31,9 @@
         <p class="text-gray-600 my-2">
           {{ body }}
         </p>
+        <p class="text-gray-600 my-2" v-if="lookUpId">
+          {{ `Calculation reference is: ${lookUpId}` }}
+        </p>
         <div class="flex flex-col items-center mt-12 text-center">
           <span class="relative inline-flex w-full md:w-auto">
             <a
@@ -66,6 +69,10 @@ export default defineComponent({
     shouldRenderCheckIcon: {
       type: Boolean,
       required: true,
+    },
+    lookUpId: {
+      type: String,
+      required: false,
     },
   },
 });

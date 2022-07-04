@@ -222,7 +222,7 @@ export default defineComponent({
       post(calculateState).then((data) => {
         setSavings(data.savings);
         setShouldWorkRemote(data.shouldWorkRemote);
-        router.push({ name: "success" });
+        router.push({ name: "results" });
       });
     };
 
@@ -230,7 +230,7 @@ export default defineComponent({
       const { post } = useApiWithAuth("/api/v2/calculations");
       post(calculateState).then((data) => {
         setCalculationId(data.id);
-        router.push({ name: "success" });
+        router.push({ name: "results" });
       });
     };
     const selectedCoffeeCount = computed(() => calculateState.coffeeCount);
