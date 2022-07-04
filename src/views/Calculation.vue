@@ -33,26 +33,15 @@ export default defineComponent({
   setup(props) {
     const { savings, shouldWorkRemote, id } = useResults();
     const calculationId = id.value;
-    const returnSubject = (): string => {
-      if (calculationId && savings) {
-        return "Calculation submitted!";
-      } else {
-        return `You should ${shouldWorkRemote.value ? "" : "not "}work remote!`;
-      }
-    };
+    const subject = savings
+      ? `You should ${shouldWorkRemote.value ? "" : "not "}work remote!`
+      : "";
 
-    const returnBody = (): string => {
-      if (calculationId && savings) {
-        return `Calculation reference is: ${calculationId}`;
-      } else {
-        return `You would ${shouldWorkRemote.value ? "save" : "lose"} £${String(
+    const body = savings
+      ? `You would ${shouldWorkRemote.value ? "save" : "lose"} £${String(
           savings.value
-        )} by working remote.`;
-      }
-    };
-    const subject = returnSubject();
-
-    const body = returnBody();
+        )} by working remote.`
+      : "";
 
     return {
       subject,
