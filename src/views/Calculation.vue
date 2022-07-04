@@ -7,11 +7,13 @@
         class="container max-w-lg px-4 py-32 mx-auto text-left md:max-w-none md:text-center"
       >
         <ResultsCard
+          v-if="savings"
           :subject="subject"
           :body="body"
           :shouldRenderCheckIcon="shouldWorkRemote || calculationId !== ''"
           :lookUpId="props.id"
         />
+        <NotFoundCard v-if="!savings" :lookUpId="props.id" />
       </div>
       <!-- End Main Hero Content -->
     </div>
@@ -23,15 +25,16 @@ import { defineComponent } from "vue";
 import { useResults } from "../modules/results";
 import Nav from "../components/Nav.vue";
 import ResultsCard from "../components/ResultsCard.vue";
+import NotFoundCard from "../components/NotFoundCard.vue";
 
 export default defineComponent({
-  components: { Nav, ResultsCard },
+  components: { Nav, ResultsCard, NotFoundCard },
   props: ["id"],
   setup(props) {
     const { savings, shouldWorkRemote, id } = useResults();
     const calculationId = id.value;
     const returnSubject = (): string => {
-      if (calculationId) {
+      if (calculationId && savings) {
         return "Calculation submitted!";
       } else {
         return `You should ${shouldWorkRemote.value ? "" : "not "}work remote!`;
@@ -39,7 +42,7 @@ export default defineComponent({
     };
 
     const returnBody = (): string => {
-      if (calculationId) {
+      if (calculationId && savings) {
         return `Calculation reference is: ${calculationId}`;
       } else {
         return `You would ${shouldWorkRemote.value ? "save" : "lose"} £${String(
@@ -57,6 +60,7 @@ export default defineComponent({
       shouldWorkRemote,
       calculationId,
       props,
+      savings,
     };
   },
   onBeforeUnmount() {
