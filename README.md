@@ -4,7 +4,7 @@ An AWS Serverless application powered by [SAM](https://aws.amazon.com/serverless
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2627c408-0907-445a-b365-119262e9c5c1/deploy-status)](https://app.netlify.com/sites/superb-salamander-c20e53/deploys)
 
-App URL [here](https://superb-salamander-c20e53.netlify.app/)
+App URL here: [`https://superb-salamander-c20e53.netlify.app/`](https://superb-salamander-c20e53.netlify.app/)
 
 Back-end project [here](https://github.com/MatthewCYLau/aws-sam-remote-work-calculator-api)
 
